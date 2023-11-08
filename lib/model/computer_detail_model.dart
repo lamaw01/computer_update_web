@@ -24,6 +24,7 @@ class ComputerDetailModel {
   String storage;
   String user;
   String monitor;
+  String browser;
   DateTime timeStamp;
 
   ComputerDetailModel({
@@ -39,6 +40,7 @@ class ComputerDetailModel {
     required this.user,
     required this.network,
     required this.monitor,
+    required this.browser,
     required this.timeStamp,
   });
 
@@ -56,6 +58,7 @@ class ComputerDetailModel {
         user: json["user"],
         network: json["network"],
         monitor: json["monitor"],
+        browser: json["browser"],
         timeStamp: DateTime.parse(json["time_stamp"]),
       );
 
@@ -72,6 +75,7 @@ class ComputerDetailModel {
         "user": user,
         "network": network,
         "monitor": monitor,
+        "browser": browser,
         "time_stamp": timeStamp.toIso8601String(),
       };
 }

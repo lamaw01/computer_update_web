@@ -35,9 +35,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
       )),
       builder: (context) {
         return DraggableScrollableSheet(
-          initialChildSize: 0.80,
-          minChildSize: 0.20,
-          maxChildSize: 0.80,
+          initialChildSize: 0.90,
+          minChildSize: 0.90,
+          maxChildSize: 0.90,
           expand: false,
           builder: (_, controller) {
             return SingleChildScrollView(
@@ -64,7 +64,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     Text('Hostname: ${model.hostname}'),
                     Text('UUID: ${model.uuid}'),
                     Text('Network: ${model.network}'),
-                    Text('Last Update:  ${dateFormat.format(model.timeStamp)}'),
+                    Text('Last Update: ${dateFormat.format(model.timeStamp)}'),
                     const SizedBox(height: 20.0),
                     SizedBox(
                       child: Row(
@@ -280,6 +280,38 @@ class _HomeViewState extends ConsumerState<HomeView> {
                               ),
                               const SizedBox(height: 5.0),
                               Text(model.monitor),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    SizedBox(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                color: Colors.grey[400],
+                                height: 25.0,
+                                width: 325.0,
+                                child: const Center(
+                                  child: Text(
+                                    'Browser',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5.0),
+                              Text(model.browser),
                             ],
                           ),
                         ],
