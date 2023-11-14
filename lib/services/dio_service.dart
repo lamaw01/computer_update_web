@@ -1,9 +1,12 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../model/computer_detail_model.dart';
+import '../model/update_model.dart';
 
 class DioService {
   static const String _serverUrl = 'http://192.168.221.21/computer_details/';
@@ -26,10 +29,9 @@ class DioService {
     return computerDetailModelFromJson(json.encode(response.data));
   }
 
-  // Future<List<EventLogModel>> getEventLog({required int eventId}) async {
-  //   Response response =
-  //       await _dio.post('/get_event_log.php', data: {"event_id": eventId});
-  //   // debugPrint(response.data.toString());
-  //   return eventLogModelFromJson(json.encode(response.data));
-  // }
+  Future<List<UpdateModel>> getUpdate() async {
+    Response response = await _dio.get('/get_update.php');
+    debugPrint(response.data.toString());
+    return updateModelFromJson(json.encode(response.data));
+  }
 }
