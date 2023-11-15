@@ -23,15 +23,38 @@ class DioService {
     ),
   );
 
-  Future<List<ComputerDetailModel>> getComputerDetail() async {
+  Future<List<ComputerDetailModel>> getAllComputerDetail() async {
     Response response = await _dio.get('/get_computer_detail.php');
-    debugPrint(response.data.toString());
+    // debugPrint(response.data.toString());
     return computerDetailModelFromJson(json.encode(response.data));
   }
 
   Future<List<UpdateModel>> getUpdate() async {
     Response response = await _dio.get('/get_update.php');
-    debugPrint(response.data.toString());
+    // debugPrint(response.data.toString());
     return updateModelFromJson(json.encode(response.data));
+  }
+
+  Future<void> updateStatus({
+    required int id,
+    required int status,
+    required int updateCode,
+  }) async {
+    Response response = await _dio.post(
+      '/update_status_table.php',
+      data: {"id": id, "status": status, "update_code": updateCode},
+    );
+    debugPrint(response.data.toString());
+  }
+
+  Future<void> addUpdateStatus({
+    required int status,
+    required int updateCode,
+  }) async {
+    Response response = await _dio.post(
+      '/add_update_status_table.php',
+      data: {"status": status, "update_code": updateCode},
+    );
+    debugPrint(response.data.toString());
   }
 }

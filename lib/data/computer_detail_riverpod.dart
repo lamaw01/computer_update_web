@@ -14,9 +14,9 @@ class LatestEvent extends Notifier<List<ComputerDetailModel>> {
     return <ComputerDetailModel>[];
   }
 
-  Future<void> getComputerDetail() async {
+  Future<void> getAllComputerDetail() async {
     try {
-      final latestEvent = await DioService().getComputerDetail();
+      final latestEvent = await DioService().getAllComputerDetail();
       state = latestEvent;
     } catch (e) {
       log(e.toString());

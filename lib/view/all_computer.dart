@@ -20,7 +20,7 @@ class _AllComputerViewState extends ConsumerState<AllComputerView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (ref.read(computerDetailProvider).isEmpty) {
-        await ref.read(computerDetailProvider.notifier).getComputerDetail();
+        await ref.read(computerDetailProvider.notifier).getAllComputerDetail();
       }
     });
   }
@@ -146,14 +146,15 @@ class _AllComputerViewState extends ConsumerState<AllComputerView> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('rebuild');
     final dataList = ref.watch(computerDetailProvider);
     return Center(
       child: SizedBox(
         width: 500.0,
         child: RefreshIndicator(
           onRefresh: () async {
-            await ref.read(computerDetailProvider.notifier).getComputerDetail();
+            await ref
+                .read(computerDetailProvider.notifier)
+                .getAllComputerDetail();
           },
           child: ListView.builder(
             key: const PageStorageKey(0),
