@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'all_computer.dart';
+import 'firstfloor_view.dart';
+import 'secondfloor_view.dart';
 import 'update_view.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -33,6 +35,26 @@ class _HomeViewState extends ConsumerState<HomeView> {
             _currentIndex = index;
           });
         },
+        icon: const Icon(Icons.desktop_windows),
+      ),
+      SideMenuItem(
+        title: '1st Floor',
+        onTap: (index, _) async {
+          sideMenu.changePage(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        icon: const Icon(Icons.desktop_windows_outlined),
+      ),
+      SideMenuItem(
+        title: '2nd Floor',
+        onTap: (index, _) async {
+          sideMenu.changePage(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         icon: const Icon(Icons.desktop_windows_outlined),
       ),
       SideMenuItem(
@@ -49,6 +71,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     final menuPages = <Widget>[
       const AllComputerView(),
+      const FirstFloorView(),
+      const SecondFloorView(),
       const UpdateView(),
     ];
 

@@ -5,10 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/computer_detail_model.dart';
 import '../services/dio_service.dart';
 
-final computerDetailProvider =
-    NotifierProvider<LatestEvent, List<ComputerDetailModel>>(LatestEvent.new);
+final allComputerlProvider =
+    NotifierProvider<AllComputerDetail, List<ComputerDetailModel>>(
+        AllComputerDetail.new);
 
-class LatestEvent extends Notifier<List<ComputerDetailModel>> {
+class AllComputerDetail extends Notifier<List<ComputerDetailModel>> {
   @override
   List<ComputerDetailModel> build() {
     return <ComputerDetailModel>[];
