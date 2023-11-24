@@ -19,17 +19,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
   int _currentIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
-  }
-
-  @override
   Widget build(BuildContext context) {
     final menuItems = [
       SideMenuItem(
         title: 'All Computer',
-        onTap: (index, _) async {
+        onTap: (index, _) {
           sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
@@ -39,7 +33,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       ),
       SideMenuItem(
         title: '1st Floor',
-        onTap: (index, _) async {
+        onTap: (index, _) {
           sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
@@ -49,17 +43,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
       ),
       SideMenuItem(
         title: '2nd Floor',
-        onTap: (index, _) async {
+        onTap: (index, _) {
           sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
           });
         },
-        icon: const Icon(Icons.desktop_windows_outlined),
+        icon: const Icon(Icons.desktop_windows_rounded),
       ),
       SideMenuItem(
         title: 'Update',
-        onTap: (index, _) async {
+        onTap: (index, _) {
           sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/secondfloor_riverpod.dart';
+import '../data/second_floor_riverpod.dart';
 import '../widget/data_modal.dart';
 
 class SecondFloorView extends ConsumerStatefulWidget {
