@@ -25,9 +25,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
       SideMenuItem(
         title: 'All Computer',
         onTap: (index, _) {
-          sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
+            sideMenu.changePage(index);
           });
         },
         icon: const Icon(Icons.desktop_windows),
@@ -35,19 +35,19 @@ class _HomeViewState extends ConsumerState<HomeView> {
       SideMenuItem(
         title: '1st Floor',
         onTap: (index, _) {
-          sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
+            sideMenu.changePage(index);
           });
         },
-        icon: const Icon(Icons.desktop_windows_rounded),
+        icon: const Icon(Icons.desktop_windows_outlined),
       ),
       SideMenuItem(
         title: '2nd Floor',
         onTap: (index, _) {
-          sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
+            sideMenu.changePage(index);
           });
         },
         icon: const Icon(Icons.desktop_windows_rounded),
@@ -55,19 +55,19 @@ class _HomeViewState extends ConsumerState<HomeView> {
       SideMenuItem(
         title: '3rd Floor',
         onTap: (index, _) {
-          sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
+            sideMenu.changePage(index);
           });
         },
-        icon: const Icon(Icons.desktop_windows_rounded),
+        icon: const Icon(Icons.desktop_windows_sharp),
       ),
       SideMenuItem(
         title: 'Update',
         onTap: (index, _) {
-          sideMenu.changePage(index);
           setState(() {
             _currentIndex = index;
+            sideMenu.changePage(index);
           });
         },
         icon: const Icon(Icons.update),
@@ -90,7 +90,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
         children: [
           SideMenu(
             controller: sideMenu,
-            onDisplayModeChanged: (mode) {},
+            // onDisplayModeChanged: (mode) {},
             items: menuItems,
             style: SideMenuStyle(
               backgroundColor: Colors.grey[300],
