@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'all_computer.dart';
 import 'firstfloor_view.dart';
 import 'secondfloor_view.dart';
+import 'thirdfloor_view.dart';
 import 'update_view.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -39,10 +40,20 @@ class _HomeViewState extends ConsumerState<HomeView> {
             _currentIndex = index;
           });
         },
-        icon: const Icon(Icons.desktop_windows_outlined),
+        icon: const Icon(Icons.desktop_windows_rounded),
       ),
       SideMenuItem(
         title: '2nd Floor',
+        onTap: (index, _) {
+          sideMenu.changePage(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        icon: const Icon(Icons.desktop_windows_rounded),
+      ),
+      SideMenuItem(
+        title: '3rd Floor',
         onTap: (index, _) {
           sideMenu.changePage(index);
           setState(() {
@@ -67,6 +78,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       const AllComputerView(),
       const FirstFloorView(),
       const SecondFloorView(),
+      const ThirdFloorView(),
       const UpdateView(),
     ];
 
