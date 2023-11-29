@@ -48,6 +48,7 @@ void showDataModal(BuildContext context, ComputerDetailModel model) {
                   Text('UUID: ${model.uuid}'),
                   Text('Network: ${model.network}'),
                   Text('Last Update: ${dateFormat.format(model.timeStamp)}'),
+                  Text('Update ID: ${model.updateId}'),
                   const SizedBox(height: 20.0),
                   SizedBox(
                     child: Row(
@@ -109,6 +110,8 @@ void showDataModal(BuildContext context, ComputerDetailModel model) {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         DetailColumn(title: 'Browser', data: model.browser),
+                        const SizedBox(width: 50.0),
+                        DetailColumn(title: 'MS Office', data: model.msoffice),
                       ],
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/computer_detail_riverpod.dart';
 import 'all_computer.dart';
 import 'firstfloor_view.dart';
 import 'secondfloor_view.dart';
@@ -85,6 +86,40 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Computer Detail'),
+        actions: [
+          InkWell(
+            onTap: () {
+              // instance.exportExcel();
+              final allComputer = ref.read(allComputerProvider.notifier);
+              allComputer.downloadExcel();
+            },
+            child: Ink(
+              height: 50.0,
+              width: 125.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: Colors.orange[300],
+              ),
+              padding: const EdgeInsets.all(5.0),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.download,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Export excel',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: Row(
         children: [

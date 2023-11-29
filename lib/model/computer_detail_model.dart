@@ -25,6 +25,8 @@ class ComputerDetailModel {
   String user;
   String monitor;
   String browser;
+  String msoffice;
+  String updateId;
   DateTime timeStamp;
 
   ComputerDetailModel({
@@ -42,6 +44,8 @@ class ComputerDetailModel {
     required this.monitor,
     required this.browser,
     required this.timeStamp,
+    required this.msoffice,
+    required this.updateId,
   });
 
   factory ComputerDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -59,6 +63,8 @@ class ComputerDetailModel {
         network: json["network"],
         monitor: json["monitor"],
         browser: json["browser"],
+        msoffice: json["msoffice"],
+        updateId: json["update_id"],
         timeStamp: DateTime.parse(json["time_stamp"]),
       );
 
@@ -76,6 +82,8 @@ class ComputerDetailModel {
         "network": network,
         "monitor": monitor,
         "browser": browser,
+        "msoffice": msoffice,
+        "update_id": updateId,
         "time_stamp": timeStamp.toIso8601String(),
       };
 }

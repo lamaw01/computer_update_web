@@ -14,7 +14,7 @@ class SecondFloorProvider extends Notifier<List<ComputerDetailModel>> {
   }
 
   void sortSecondFloorComputerDetail() async {
-    final allComputer = ref.read(allComputerlProvider);
+    final allComputer = ref.read(allComputerProvider);
     final sortedList2 = allComputer.where((e) {
       return e.hostname.substring(0, 1) == '2';
     });

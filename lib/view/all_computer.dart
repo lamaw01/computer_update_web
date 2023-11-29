@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,23 +19,22 @@ class _AllComputerViewState extends ConsumerState<AllComputerView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (ref.read(allComputerlProvider).isEmpty) {
-        await ref.read(allComputerlProvider.notifier).getAllComputerDetail();
+      if (ref.read(allComputerProvider).isEmpty) {
+        await ref.read(allComputerProvider.notifier).getAllComputerDetail();
+        log(ref.read(allComputerProvider).length.toString());
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final dataList = ref.watch(allComputerlProvider);
+    final dataList = ref.watch(allComputerProvider);
     return Center(
       child: SizedBox(
         width: 500.0,
         child: RefreshIndicator(
           onRefresh: () async {
-            await ref
-                .read(allComputerlProvider.notifier)
-                .getAllComputerDetail();
+            await ref.read(allComputerProvider.notifier).getAllComputerDetail();
           },
           child: ListView.builder(
             key: const PageStorageKey(0),
