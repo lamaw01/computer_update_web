@@ -13,7 +13,7 @@ class ThirdFloorProvider extends Notifier<List<ComputerDetailModel>> {
     return <ComputerDetailModel>[];
   }
 
-  void sortThirdFloorComputerDetail() async {
+  void sortThirdFloorComputerDetail() {
     final allComputer = ref.read(allComputerProvider);
     final sortedList3 = allComputer.where((e) {
       return e.hostname.substring(0, 1) == '3';

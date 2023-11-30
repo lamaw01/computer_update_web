@@ -13,7 +13,7 @@ class FirstFloorProvider extends Notifier<List<ComputerDetailModel>> {
     return <ComputerDetailModel>[];
   }
 
-  void sortFirstFloorComputerDetail() async {
+  void sortFirstFloorComputerDetail() {
     final allComputer = ref.read(allComputerProvider);
     final sortedList1 = allComputer.where((e) {
       return e.hostname.substring(0, 1) == '1';

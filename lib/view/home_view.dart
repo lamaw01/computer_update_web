@@ -87,38 +87,50 @@ class _HomeViewState extends ConsumerState<HomeView> {
       appBar: AppBar(
         title: const Text('Computer Detail'),
         actions: [
-          InkWell(
-            onTap: () {
-              // instance.exportExcel();
-              final allComputer = ref.read(allComputerProvider.notifier);
-              allComputer.downloadExcel();
+          IconButton(
+            onPressed: () {
+              ref.read(allComputerProvider.notifier).downloadExcel();
             },
-            child: Ink(
-              height: 50.0,
-              width: 125.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                color: Colors.orange[300],
-              ),
-              padding: const EdgeInsets.all(5.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.download,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    'Export excel',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+            icon: const Icon(
+              Icons.file_download_outlined,
+              color: Colors.white,
             ),
+            splashRadius: 30.0,
+            iconSize: 30.0,
+            tooltip: 'Download Arriba Excel',
           ),
+          // InkWell(
+          //   onTap: () {
+          //     // instance.exportExcel();
+          //     final allComputer = ref.read(allComputerProvider.notifier);
+          //     allComputer.downloadExcel();
+          //   },
+          //   child: Ink(
+          //     height: 50.0,
+          //     width: 125.0,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(5.0),
+          //       color: Colors.orange[300],
+          //     ),
+          //     padding: const EdgeInsets.all(5.0),
+          //     child: const Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Icon(
+          //           Icons.download,
+          //           color: Colors.white,
+          //         ),
+          //         Text(
+          //           'Export excel',
+          //           style: TextStyle(
+          //             fontSize: 16.0,
+          //             color: Colors.white,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       body: Row(
