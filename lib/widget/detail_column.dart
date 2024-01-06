@@ -12,13 +12,13 @@ class DetailColumn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {
-        // final dataList = ref.read(allComputerProvider.notifier);
-        // dataList.checkOsString();
-        // dataList.checkDefenderString();
-        // dataList.checkBrowserString();
-        // dataList.checkMsOfficeString();
-      },
+      // onTap: () {
+      // final dataList = ref.read(allComputerProvider.notifier);
+      // dataList.checkOsString();
+      // dataList.checkDefenderString();
+      // dataList.checkBrowserString();
+      // dataList.checkMsOfficeString();
+      // },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +37,11 @@ class DetailColumn extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 5.0),
-          Text(data),
+          SelectionArea(
+            child: Text(
+              data,
+            ),
+          ),
         ],
       ),
     );

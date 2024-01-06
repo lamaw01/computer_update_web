@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/computer_detail_riverpod.dart';
 import 'all_computer.dart';
 import 'firstfloor_view.dart';
+import 'others_view.dart';
 import 'secondfloor_view.dart';
 import 'thirdfloor_view.dart';
 import 'update_view.dart';
@@ -64,6 +65,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
         icon: const Icon(Icons.desktop_windows_sharp),
       ),
       SideMenuItem(
+        title: 'Others',
+        onTap: (index, _) {
+          setState(() {
+            _currentIndex = index;
+            sideMenu.changePage(index);
+          });
+        },
+        icon: const Icon(Icons.desktop_mac_outlined),
+      ),
+      SideMenuItem(
         title: 'Update',
         onTap: (index, _) {
           setState(() {
@@ -80,6 +91,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       const FirstFloorView(),
       const SecondFloorView(),
       const ThirdFloorView(),
+      const OthersView(),
       const UpdateView(),
     ];
 
