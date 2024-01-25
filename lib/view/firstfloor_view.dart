@@ -34,7 +34,7 @@ class _FirstFloorViewState extends ConsumerState<FirstFloorView> {
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                 title: Text(dataList[index].hostname),
                 onTap: () {
-                  showDataModal(context, dataList[index]);
+                  showDataModal(context, dataList[index], ref);
                 },
               ),
             );

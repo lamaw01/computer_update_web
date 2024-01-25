@@ -107,7 +107,7 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
               onPressed: () async {
                 Navigator.of(context).pop();
                 await ref.read(addUpdateStatusFutureProvider(
-                        AddUpdateModel(status: status, updateCode: updateCode))
+                        AddUpdateAtg(status: status, updateCode: updateCode))
                     .future);
                 ref.read(updateAsyncProvider.notifier).refresh();
               },

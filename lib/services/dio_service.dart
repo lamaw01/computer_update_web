@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../model/computer_detail_model.dart';
+import '../model/note_model.dart';
 import '../model/update_model.dart';
 
 class DioService {
@@ -14,8 +15,8 @@ class DioService {
   final _dio = Dio(
     BaseOptions(
       baseUrl: '$_serverUrl/api',
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 20),
+      receiveTimeout: const Duration(seconds: 20),
       headers: <String, String>{
         'Accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -24,13 +25,13 @@ class DioService {
   );
 
   Future<List<ComputerDetailModel>> getAllComputerDetail() async {
-    Response response = await _dio.get('/get_computer_detail.php');
+    final response = await _dio.get('/get_computer_detail.php');
     // debugPrint(response.data.toString());
     return computerDetailModelFromJson(json.encode(response.data));
   }
 
   Future<List<UpdateModel>> getUpdate() async {
-    Response response = await _dio.get('/get_update.php');
+    final response = await _dio.get('/get_update.php');
     // debugPrint(response.data.toString());
     return updateModelFromJson(json.encode(response.data));
   }
@@ -40,7 +41,7 @@ class DioService {
     required int status,
     required int updateCode,
   }) async {
-    Response response = await _dio.post(
+    final response = await _dio.post(
       '/update_status_table.php',
       data: {"id": id, "status": status, "update_code": updateCode},
     );
@@ -51,10 +52,47 @@ class DioService {
     required int status,
     required int updateCode,
   }) async {
-    Response response = await _dio.post(
+    final response = await _dio.post(
       '/add_update_status_table.php',
       data: {"status": status, "update_code": updateCode},
     );
     debugPrint(response.data.toString());
+  }
+
+  Future<void> addNote({
+    required String note,
+    required String updateId,
+    required String uuid,
+  }) async {
+    final response = await _dio.post(
+      '/add_note.php',
+      data: {
+        "note": note,
+        "update_id": updateId,
+        "uuid": uuid,
+      },
+    );
+    debugPrint(response.data.toString());
+  }
+
+  Future<NoteModel> getNote({
+    required String uuid,
+  }) async {
+    final response = await _dio.post(
+      '/get_note.php',
+      data: {
+        "uuid": uuid,
+      },
+    );
+    // debugPrint(response.data.toString());
+    return noteModelFromJson(json.encode(response.data));
+  }
+
+  Future<List<ComputerDetailModel>> getHistory(String uuid) async {
+    final response = await _dio.post('/get_history.php', data: {
+      "uuid": uuid,
+    });
+    // debugPrint(response.data.toString());
+    return computerDetailModelFromJson(json.encode(response.data));
   }
 }
