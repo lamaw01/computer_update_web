@@ -104,7 +104,7 @@ class AllComputerDetail extends Notifier<List<ComputerDetailModel>> {
       // debugPrint(productversion);
       returnValue = productversion;
     } catch (e) {
-      debugPrint("$e checkMsOfficeString");
+      // debugPrint("$e checkMsOfficeString");
       returnValue = '14.0.4734.1000';
     }
     return returnValue;
@@ -175,21 +175,34 @@ class AllComputerDetail extends Notifier<List<ComputerDetailModel>> {
       arribaComputers.addAll(ref.read(secondFloorProvider));
 
       for (int i = 0; i < arribaComputers.length; i++) {
-        final os = checkOsString(i);
-        final office = checkMsOfficeString(i);
-        final defender = checkDefenderString(i);
-        final browser = checkBrowserString(i);
+        OsModel? os;
+        String office = '';
+        String defender = '';
+        BrowserModel? browser;
+
+        try {
+          os = checkOsString(i);
+          office = checkMsOfficeString(i);
+          defender = checkDefenderString(i);
+          browser = checkBrowserString(i);
+        } catch (e) {
+          debugPrint('$e');
+        }
+        // final os = checkOsString(i);
+        // final office = checkMsOfficeString(i);
+        // final defender = checkDefenderString(i);
+        // final browser = checkBrowserString(i);
         final dateFormat = DateFormat('yyyy-MM-dd hh:mm');
 
         List<CellValue?> dataList = [
           TextCellValue(state[i].hostname),
-          TextCellValue(os.caption),
-          TextCellValue(os.version),
-          TextCellValue(os.buildNumber),
+          TextCellValue(os?.caption ?? ''),
+          TextCellValue(os?.version ?? ''),
+          TextCellValue(os?.buildNumber ?? ''),
           TextCellValue(office),
           TextCellValue(defender),
-          TextCellValue(browser.chrome),
-          TextCellValue(browser.msedge),
+          TextCellValue(browser?.chrome ?? ''),
+          TextCellValue(browser?.msedge ?? ''),
           TextCellValue(dateFormat.format(state[i].timeStamp)),
         ];
         sheetObject.appendRow(dataList);
