@@ -15,8 +15,8 @@ class DioService {
   final _dio = Dio(
     BaseOptions(
       baseUrl: '$_serverUrl/api',
-      connectTimeout: const Duration(seconds: 20),
-      receiveTimeout: const Duration(seconds: 20),
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
       headers: <String, String>{
         'Accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -92,6 +92,15 @@ class DioService {
     final response = await _dio.post('/get_history.php', data: {
       "uuid": uuid,
     });
+    // debugPrint(response.data.toString());
+    return computerDetailModelFromJson(json.encode(response.data));
+  }
+
+  Future<List<ComputerDetailModel>> searchComputer(String hostname) async {
+    final response = await _dio.post(
+      '/search_computer.php',
+      data: {"hostname": hostname},
+    );
     // debugPrint(response.data.toString());
     return computerDetailModelFromJson(json.encode(response.data));
   }

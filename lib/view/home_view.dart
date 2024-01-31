@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/computer_detail_riverpod.dart';
+import '../data/search_computer_riverpod.dart';
 import 'all_computer.dart';
 import 'firstfloor_view.dart';
 import 'others_view.dart';
+import 'search_view.dart';
 import 'secondfloor_view.dart';
 import 'thirdfloor_view.dart';
 import 'update_view.dart';
@@ -20,6 +22,20 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   SideMenuController sideMenu = SideMenuController();
   int _currentIndex = 0;
+  final searchController = TextEditingController();
+  final _isSearching = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      if (searchController.text.isEmpty) {
+        _isSearching.value = false;
+      } else {
+        _isSearching.value = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +114,49 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Computer Detail'),
+        flexibleSpace: _currentIndex != 5
+            ? FlexibleSpaceBar(
+                centerTitle: true,
+                title: SizedBox(
+                  width: 200.0,
+                  // height: 100.0,
+                  child: Center(
+                    child: TextField(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.black,
+                      controller: searchController,
+                      onChanged: (value) async {
+                        await ref
+                            .read(searchComputerProvider.notifier)
+                            .searchComputer(value.toUpperCase());
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Search computer..',
+                        isDense: false,
+                        hintStyle: TextStyle(color: Colors.white),
+                        focusColor: Colors.white,
+                        fillColor: Colors.white,
+                        hoverColor: Colors.white,
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : null,
         actions: [
           IconButton(
             onPressed: () {
@@ -160,7 +219,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
             ),
           ),
           Expanded(
-            child: menuPages.elementAt(_currentIndex),
+            // child: menuPages.elementAt(_currentIndex),
+            child: ValueListenableBuilder(
+              valueListenable: _isSearching,
+              builder: (context, value, child) {
+                if (value) {
+                  return const SearchView();
+                }
+                return menuPages.elementAt(_currentIndex);
+              },
+            ),
           ),
         ],
       ),
