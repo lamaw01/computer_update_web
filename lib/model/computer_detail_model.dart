@@ -19,6 +19,7 @@ class ComputerDetailModel {
   String os;
   String defender;
   String cpu;
+  String gpu;
   String motherboard;
   String ram;
   String storage;
@@ -36,6 +37,7 @@ class ComputerDetailModel {
     required this.os,
     required this.defender,
     required this.cpu,
+    required this.gpu,
     required this.motherboard,
     required this.ram,
     required this.storage,
@@ -56,6 +58,7 @@ class ComputerDetailModel {
         os: json["os"],
         defender: json["defender"],
         cpu: json["cpu"],
+        gpu: json["gpu"],
         motherboard: json["motherboard"],
         ram: json["ram"],
         storage: json["storage"],
@@ -75,6 +78,7 @@ class ComputerDetailModel {
         "os": os,
         "defender": defender,
         "cpu": cpu,
+        "gpu": gpu,
         "motherboard": motherboard,
         "ram": ram,
         "storage": storage,

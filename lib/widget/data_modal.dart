@@ -141,6 +141,7 @@ var _currentModalData = ValueNotifier<ComputerDetailModel>(ComputerDetailModel(
   os: '',
   defender: '',
   cpu: '',
+  gpu: '',
   motherboard: '',
   ram: '',
   storage: '',
@@ -297,6 +298,16 @@ void showDataModal(
                           ),
                         ),
                         const SizedBox(height: 20.0),
+                        SizedBox(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              DetailColumn(title: 'Gpu', data: value.gpu),
+                            ],
+                          ),
+                        ),
                       ],
                     );
                   }),
