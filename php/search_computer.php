@@ -7,19 +7,20 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $hostname = $input['hostname'];
+    $search = $input['search'];
 
-    $concat_hostname = "%$hostname%";
+    $concat_search = "%$search%";
 
     // query get new machine details
-    $sql= 'SELECT * FROM tbl_computer_details WHERE id IN (SELECT Max(id) FROM tbl_computer_details GROUP BY hostname) AND hostname LIKE :hostname ORDER BY hostname ASC;';
+    // $sql= 'SELECT * FROM tbl_computer_details WHERE id IN (SELECT Max(id) FROM tbl_computer_details GROUP BY hostname) AND hostname LIKE :hostname ORDER BY hostname ASC;';
+    $sql = 'SELECT * FROM tbl_computer_details WHERE id IN (SELECT Max(id) FROM tbl_computer_details GROUP BY hostname) AND (hostname LIKE :search OR cpu LIKE :search OR motherboard LIKE :search OR ram LIKE :search OR storage LIKE :search OR user LIKE :search OR network LIKE :search OR monitor LIKE :search OR gpu LIKE :search OR uuid LIKE :search) AND hostname != "" ORDER BY hostname ASC';
 
     try {
         $set=$conn->prepare("SET SQL_MODE=''");
         $set->execute();
 
         $get_sql = $conn->prepare($sql);
-        $get_sql->bindParam(':hostname', $concat_hostname, PDO::PARAM_STR);
+        $get_sql->bindParam(':search', $concat_search, PDO::PARAM_STR);
         $get_sql->execute();
         $result_get_sql = $get_sql->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result_get_sql);

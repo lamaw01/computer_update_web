@@ -33,6 +33,7 @@ class _OthersViewState extends ConsumerState<OthersView> {
                 minVerticalPadding: 0.0,
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                 title: Text(dataList[index].hostname),
+                subtitle: Text(dataList[index].note ?? ''),
                 onTap: () {
                   showDataModal(context, dataList[index], ref);
                 },

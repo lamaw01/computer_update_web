@@ -75,6 +75,22 @@ class DioService {
     debugPrint(response.data.toString());
   }
 
+  Future<void> updateNote({
+    required int id,
+    required String note,
+    required String uuid,
+  }) async {
+    final response = await _dio.post(
+      '/update_note.php',
+      data: {
+        "id": id,
+        "note": note,
+        "uuid": uuid,
+      },
+    );
+    debugPrint(response.data.toString());
+  }
+
   Future<NoteModel> getNote({
     required String uuid,
   }) async {
@@ -96,10 +112,10 @@ class DioService {
     return computerDetailModelFromJson(json.encode(response.data));
   }
 
-  Future<List<ComputerDetailModel>> searchComputer(String hostname) async {
+  Future<List<ComputerDetailModel>> searchComputer(String search) async {
     final response = await _dio.post(
       '/search_computer.php',
-      data: {"hostname": hostname},
+      data: {"search": search},
     );
     // debugPrint(response.data.toString());
     return computerDetailModelFromJson(json.encode(response.data));

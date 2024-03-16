@@ -34,6 +34,7 @@ class _SecondFloorViewState extends ConsumerState<SecondFloorView> {
                 minVerticalPadding: 0.0,
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                 title: Text(dataList[index].hostname),
+                subtitle: Text(dataList[index].note ?? ''),
                 onTap: () {
                   showDataModal(context, dataList[index], ref);
                 },

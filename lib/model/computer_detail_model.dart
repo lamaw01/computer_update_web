@@ -29,6 +29,7 @@ class ComputerDetailModel {
   String msoffice;
   String updateId;
   DateTime timeStamp;
+  String? note;
 
   ComputerDetailModel({
     required this.id,
@@ -48,6 +49,7 @@ class ComputerDetailModel {
     required this.timeStamp,
     required this.msoffice,
     required this.updateId,
+    this.note,
   });
 
   factory ComputerDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -69,6 +71,7 @@ class ComputerDetailModel {
         msoffice: json["msoffice"],
         updateId: json["update_id"],
         timeStamp: DateTime.parse(json["time_stamp"]),
+        note: json["note"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,5 +92,6 @@ class ComputerDetailModel {
         "msoffice": msoffice,
         "update_id": updateId,
         "time_stamp": timeStamp.toIso8601String(),
+        "note": note,
       };
 }

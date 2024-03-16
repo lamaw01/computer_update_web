@@ -128,7 +128,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       onChanged: (value) async {
                         await ref
                             .read(searchComputerProvider.notifier)
-                            .searchComputer(value.toUpperCase());
+                            .searchComputer(value);
                       },
                       decoration: const InputDecoration(
                         hintText: 'Search computer..',

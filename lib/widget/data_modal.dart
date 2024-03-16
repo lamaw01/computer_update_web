@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,28 +7,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../data/add_note_riverpod.dart';
+import '../data/computer_detail_riverpod.dart';
 import '../data/computer_history_riverpod.dart';
 import '../data/get_note_riverpod.dart';
+import '../data/update_note_riverpod.dart';
 import '../model/computer_detail_model.dart';
 import '../model/note_model.dart';
 import 'detail_column.dart';
 
 void showAddNote(
     BuildContext context, ComputerDetailModel model, WidgetRef ref) async {
-  NoteModel? notemode;
+  NoteModel? notemodel;
 
   try {
     await ref
         .read(getNoteFutureProvider(model.uuid).future)
-        .then((value) => notemode = value);
+        .then((value) => notemodel = value);
   } catch (e) {
     log('$e');
   } finally {
-    // ignore: use_build_context_synchronously
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        final notes = TextEditingController(text: notemode?.note ?? '');
+        final notes = TextEditingController(text: notemodel?.note ?? '');
         return AlertDialog(
           title: const Text('Remarks'),
           content: SizedBox(
@@ -81,12 +84,24 @@ void showAddNote(
                 style: TextStyle(fontSize: 16.0),
               ),
               onPressed: () async {
+                //dire
                 Navigator.of(context).pop();
-                await ref.read(addNoteFutureProvider(NoteArg(
-                        note: notes.text.trim(),
-                        updateId: model.updateId,
-                        uuid: model.uuid))
-                    .future);
+                if (model.note == null) {
+                  await ref.read(addNoteFutureProvider(NoteArg(
+                          note: notes.text.trim(),
+                          updateId: model.updateId,
+                          uuid: model.uuid))
+                      .future);
+                } else {
+                  await ref.read(updateNoteFutureProvider(NoteArgUpdate(
+                          id: notemodel!.id,
+                          note: notes.text.trim(),
+                          uuid: model.uuid))
+                      .future);
+                }
+                await ref
+                    .read(allComputerProvider.notifier)
+                    .getAllComputerDetail();
               },
             ),
           ],
@@ -100,7 +115,6 @@ void showHistory(
     BuildContext context, ComputerDetailModel model, WidgetRef ref) async {
   await ref.read(historyProvider.notifier).getHistory(model.uuid);
   final dataList = ref.watch(historyProvider);
-  // ignore: use_build_context_synchronously
   await showDialog(
     context: context,
     builder: (BuildContext context) {

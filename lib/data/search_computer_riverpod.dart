@@ -15,9 +15,9 @@ class HistoryComputer extends Notifier<List<ComputerDetailModel>> {
     return <ComputerDetailModel>[];
   }
 
-  Future<void> searchComputer(String hosname) async {
+  Future<void> searchComputer(String search) async {
     try {
-      state = await DioService().searchComputer(hosname);
+      state = await DioService().searchComputer(search);
       log(state.length.toString());
     } catch (e) {
       log(e.toString());
