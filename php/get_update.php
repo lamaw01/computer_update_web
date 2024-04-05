@@ -9,7 +9,7 @@ $input = json_decode($inputJSON, TRUE);
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     // query insert new machine details
-    $sql= 'SELECT * FROM tbl_update ORDER BY id ASC';
+    $sql= 'SELECT * FROM tbl_update ORDER BY id DESC';
 
     try {
         $set=$conn->prepare("SET SQL_MODE=''");

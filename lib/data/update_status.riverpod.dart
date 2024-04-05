@@ -7,6 +7,10 @@ final updateStatusFutureProvider =
     FutureProvider.family.autoDispose<void, UpdateModel>(
   (ref, model) {
     return DioService().updateStatus(
-        id: model.id, status: model.status, updateCode: model.updateCode);
+      id: model.id,
+      status: model.status,
+      updateCode: model.updateCode,
+      updateOnce: model.updateOnce,
+    );
   },
 );

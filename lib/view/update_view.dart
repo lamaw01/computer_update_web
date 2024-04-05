@@ -17,7 +17,8 @@ class UpdateView extends ConsumerStatefulWidget {
 class _UpdateViewState extends ConsumerState<UpdateView> {
   void addUpdateDialog() {
     bool status = true;
-    bool updateCode = false;
+    bool updateCode = true;
+    bool updateOnce = true;
     showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -84,6 +85,32 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
                         ),
                       ],
                     ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 100.0,
+                          child: Text(
+                            'Update Once: ',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 100.0,
+                          child: CupertinoSwitch(
+                            activeColor: Colors.red,
+                            value: updateOnce,
+                            onChanged: (value) async {
+                              setState(() {
+                                updateOnce = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               );
@@ -106,8 +133,10 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
               ),
               onPressed: () async {
                 Navigator.of(context).pop();
-                await ref.read(addUpdateStatusFutureProvider(
-                        AddUpdateAtg(status: status, updateCode: updateCode))
+                await ref.read(addUpdateStatusFutureProvider(AddUpdateAtg(
+                        status: status,
+                        updateCode: updateCode,
+                        updateOnce: updateOnce))
                     .future);
                 ref.read(updateAsyncProvider.notifier).refresh();
               },
@@ -119,10 +148,7 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
   }
 
   bool isTrue(int value) {
-    if (value == 1) {
-      return true;
-    }
-    return false;
+    return value == 1 ? true : false;
   }
 
   @override
@@ -135,7 +161,7 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
         data: (data) {
           return Center(
             child: SizedBox(
-              width: 500.0,
+              width: 600.0,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -144,7 +170,7 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
                   children: [
                     Container(
                       height: 50.0,
-                      width: 500.0,
+                      width: 600.0,
                       color: Colors.grey[400],
                       child: const Row(
                         children: [
@@ -180,6 +206,16 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
                           ),
                           Flexible(
                             child: SizedBox(
+                              width: 100.0,
+                              child: Text(
+                                'Update Once',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: SizedBox(
                               width: 200.0,
                               child: Text(
                                 'Timestamp',
@@ -201,7 +237,7 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
                           itemBuilder: (context, index) {
                             return SizedBox(
                               height: 50.0,
-                              width: 500.0,
+                              width: 600.0,
                               child: Row(
                                 children: [
                                   Flexible(
@@ -241,6 +277,26 @@ class _UpdateViewState extends ConsumerState<UpdateView> {
                                         onChanged: (value) async {
                                           setState(() {
                                             data[index].updateCode =
+                                                value ? 1 : 0;
+                                          });
+                                          await ref.read(
+                                              updateStatusFutureProvider(
+                                                      data[index])
+                                                  .future);
+                                          update.refresh();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: SizedBox(
+                                      width: 100.0,
+                                      child: CupertinoSwitch(
+                                        activeColor: Colors.red,
+                                        value: isTrue(data[index].updateOnce),
+                                        onChanged: (value) async {
+                                          setState(() {
+                                            data[index].updateOnce =
                                                 value ? 1 : 0;
                                           });
                                           await ref.read(

@@ -9,14 +9,16 @@ $input = json_decode($inputJSON, TRUE);
 if($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists('id', $input)){
     $status = $input['status'];
     $update_code = $input['update_code'];
+    $update_once = $input['update_once'];
     $id = $input['id'];
 
-    $sql = 'UPDATE tbl_update SET status=:status, update_code=:update_code WHERE id=:id';
+    $sql = 'UPDATE tbl_update SET status=:status, update_code=:update_code, update_once=:update_once WHERE id=:id';
 
     try {
         $sql_update = $conn->prepare($sql);
         $sql_update->bindParam(':status', $status, PDO::PARAM_STR);
         $sql_update->bindParam(':update_code', $update_code, PDO::PARAM_STR);
+        $sql_update->bindParam(':update_once', $update_once, PDO::PARAM_STR);
         $sql_update->bindParam(':id', $id, PDO::PARAM_INT);
         $sql_update->execute();
         echo json_encode(array('success'=>true,'message'=>'ok'));

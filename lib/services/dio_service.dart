@@ -40,10 +40,16 @@ class DioService {
     required int id,
     required int status,
     required int updateCode,
+    required int updateOnce,
   }) async {
     final response = await _dio.post(
       '/update_status_table.php',
-      data: {"id": id, "status": status, "update_code": updateCode},
+      data: {
+        "id": id,
+        "status": status,
+        "update_code": updateCode,
+        "update_once": updateOnce,
+      },
     );
     debugPrint(response.data.toString());
   }
@@ -51,10 +57,15 @@ class DioService {
   Future<void> addUpdateStatus({
     required int status,
     required int updateCode,
+    required int updateOnce,
   }) async {
     final response = await _dio.post(
       '/add_update_status_table.php',
-      data: {"status": status, "update_code": updateCode},
+      data: {
+        "status": status,
+        "update_code": updateCode,
+        "update_once": updateOnce
+      },
     );
     debugPrint(response.data.toString());
   }

@@ -14,12 +14,14 @@ class UpdateModel {
   int id;
   int status;
   int updateCode;
+  int updateOnce;
   DateTime timeStamp;
 
   UpdateModel({
     required this.id,
     required this.status,
     required this.updateCode,
+    required this.updateOnce,
     required this.timeStamp,
   });
 
@@ -27,6 +29,7 @@ class UpdateModel {
         id: json["id"],
         status: json["status"],
         updateCode: json["update_code"],
+        updateOnce: json["update_once"],
         timeStamp: DateTime.parse(json["time_stamp"]),
       );
 
@@ -34,6 +37,7 @@ class UpdateModel {
         "id": id,
         "status": status,
         "update_code": updateCode,
+        "update_once": updateOnce,
         "time_stamp": timeStamp.toIso8601String(),
       };
 }

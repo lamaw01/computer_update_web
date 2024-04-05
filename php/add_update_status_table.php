@@ -9,9 +9,10 @@ $input = json_decode($inputJSON, TRUE);
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $status = $input['status'];
     $update_code = $input['update_code'];
+    $update_once = $input['update_once'];
 
     // query insert new update status
-    $insert_sql= 'INSERT INTO tbl_update(status,update_code) VALUES (:status,:update_code)';
+    $insert_sql= 'INSERT INTO tbl_update(status,update_code,update_once) VALUES (:status,:update_code,:update_once)';
 
     try {
         $set=$conn->prepare("SET SQL_MODE=''");
@@ -20,6 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $sql_insert = $conn->prepare($insert_sql);
         $sql_insert->bindParam(':status', $status, PDO::PARAM_INT);
         $sql_insert->bindParam(':update_code', $update_code, PDO::PARAM_INT);
+        $sql_insert->bindParam(':update_once', $update_once, PDO::PARAM_INT);
     
         $sql_insert->execute();
         echo json_encode(array('success'=>true,'message'=>'insert'));
