@@ -16,6 +16,7 @@ class ComputerDetailModel {
   String uuid;
   String hostname;
   String network;
+  String mac;
   String os;
   String defender;
   String cpu;
@@ -44,6 +45,7 @@ class ComputerDetailModel {
     required this.storage,
     required this.user,
     required this.network,
+    required this.mac,
     required this.monitor,
     required this.browser,
     required this.timeStamp,
@@ -66,6 +68,7 @@ class ComputerDetailModel {
         storage: json["storage"],
         user: json["user"],
         network: json["network"],
+        mac: json["mac"],
         monitor: json["monitor"],
         browser: json["browser"],
         msoffice: json["msoffice"],
@@ -87,6 +90,7 @@ class ComputerDetailModel {
         "storage": storage,
         "user": user,
         "network": network,
+        "mac": mac,
         "monitor": monitor,
         "browser": browser,
         "msoffice": msoffice,

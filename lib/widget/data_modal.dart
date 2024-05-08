@@ -147,25 +147,28 @@ void showHistory(
   );
 }
 
-var _currentModalData = ValueNotifier<ComputerDetailModel>(ComputerDetailModel(
-  browser: '',
-  id: 0,
-  uuid: '',
-  hostname: '',
-  os: '',
-  defender: '',
-  cpu: '',
-  gpu: '',
-  motherboard: '',
-  ram: '',
-  storage: '',
-  user: '',
-  network: '',
-  monitor: '',
-  timeStamp: DateTime.now(),
-  msoffice: '',
-  updateId: '',
-));
+var _currentModalData = ValueNotifier<ComputerDetailModel>(
+  ComputerDetailModel(
+    browser: '',
+    id: 0,
+    uuid: '',
+    hostname: '',
+    os: '',
+    defender: '',
+    cpu: '',
+    gpu: '',
+    motherboard: '',
+    ram: '',
+    storage: '',
+    user: '',
+    network: '',
+    mac: '',
+    monitor: '',
+    timeStamp: DateTime.now(),
+    msoffice: '',
+    updateId: '',
+  ),
+);
 
 void showDataModal(
     BuildContext context, ComputerDetailModel model, WidgetRef ref) {
@@ -236,6 +239,7 @@ void showDataModal(
                         SelectableText('Hostname: ${value.hostname}'),
                         SelectableText('UUID: ${value.uuid}'),
                         SelectableText('Network: ${value.network}'),
+                        SelectableText('MAC Address: ${value.mac}'),
                         Text(
                             'Last Update: ${dateFormat.format(value.timeStamp)}'),
                         Text('Update ID: ${value.updateId}'),
