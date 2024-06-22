@@ -9,6 +9,7 @@ import 'firstfloor_view.dart';
 import 'others_view.dart';
 import 'search_view.dart';
 import 'secondfloor_view.dart';
+import 'department_view.dart';
 import 'thirdfloor_view.dart';
 import 'update_view.dart';
 
@@ -100,6 +101,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
         },
         icon: const Icon(Icons.update),
       ),
+      SideMenuItem(
+        title: 'Department',
+        onTap: (index, _) {
+          setState(() {
+            _currentIndex = index;
+            sideMenu.changePage(index);
+          });
+        },
+        icon: const Icon(Icons.house),
+      ),
     ];
 
     final menuPages = <Widget>[
@@ -109,6 +120,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       const ThirdFloorView(),
       const OthersView(),
       const UpdateView(),
+      const DepartmentView(),
     ];
 
     return Scaffold(

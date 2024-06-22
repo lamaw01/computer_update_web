@@ -2,15 +2,21 @@
 
 import 'dart:developer';
 
+import 'package:computer_detail_web/model/department_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../data/add_computer_department.dart';
 import '../data/add_note_riverpod.dart';
 import '../data/computer_detail_riverpod.dart';
 import '../data/computer_history_riverpod.dart';
+import '../data/get_computer_department.dart';
+import '../data/get_department.dart';
 import '../data/get_note_riverpod.dart';
+import '../data/update_computer_department.dart';
 import '../data/update_note_riverpod.dart';
+import '../model/computer_department_arg_model.dart';
 import '../model/computer_detail_model.dart';
 import '../model/note_model.dart';
 import 'detail_column.dart';
@@ -147,6 +153,51 @@ void showHistory(
   );
 }
 
+Future<DepartmentModel?> showDepartmentDialog(
+    BuildContext context, WidgetRef ref) async {
+  final dataList = ref.watch(departmentProvider);
+  DepartmentModel? departmentModel;
+  try {
+    await showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Department'),
+          content: SizedBox(
+            height: 400.0,
+            width: 400.0,
+            child: ListView.builder(
+              key: const PageStorageKey(0),
+              itemCount: dataList.length,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return const SizedBox();
+                }
+                return Card(
+                  child: ListTile(
+                    minVerticalPadding: 0.0,
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: Text(dataList[index].department),
+                    onTap: () {
+                      Navigator.pop(context);
+                      departmentModel = dataList[index];
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  } catch (e) {
+    log(e.toString());
+  }
+  return departmentModel;
+}
+
 var _currentModalData = ValueNotifier<ComputerDetailModel>(
   ComputerDetailModel(
     browser: '',
@@ -171,9 +222,24 @@ var _currentModalData = ValueNotifier<ComputerDetailModel>(
 );
 
 void showDataModal(
-    BuildContext context, ComputerDetailModel model, WidgetRef ref) {
+    BuildContext context, ComputerDetailModel model, WidgetRef ref) async {
   final dateFormat = DateFormat().add_yMEd().add_Hms();
   _currentModalData.value = model;
+  DepartmentModel? departmentModel;
+  bool hasDepartment = false;
+
+  try {
+    await ref
+        .read(getComputerDepartmentFutureProvider(model.uuid).future)
+        .then((value) => departmentModel = value);
+  } catch (e) {
+    log(e.toString());
+  } finally {
+    if (departmentModel != null) {
+      hasDepartment = true;
+    }
+  }
+
   showModalBottomSheet(
     context: context,
     showDragHandle: true,
@@ -220,6 +286,51 @@ void showDataModal(
                                 showHistory(context, value, ref);
                               },
                             ),
+                            const SizedBox(width: 10.0),
+                            StatefulBuilder(builder: (context, setState) {
+                              return SizedBox(
+                                // color: Colors.pink,
+                                width: 220.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    ElevatedButton(
+                                      child: const Text('Department'),
+                                      onPressed: () async {
+                                        await showDepartmentDialog(context, ref)
+                                            .then((value) async {
+                                          if (value != null) {
+                                            setState(() {
+                                              departmentModel = value;
+                                            });
+
+                                            if (hasDepartment) {
+                                              await ref.read(
+                                                  updateComputerDepartmentFutureProvider(
+                                                          ComputerDepartmentArg(
+                                                              model.uuid,
+                                                              departmentModel!
+                                                                  .id))
+                                                      .future);
+                                            } else {
+                                              await ref.read(
+                                                  addComputerDepartmentFutureProvider(
+                                                          ComputerDepartmentArg(
+                                                              model.uuid,
+                                                              departmentModel!
+                                                                  .id))
+                                                      .future);
+                                            }
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    Text(departmentModel?.department ?? 'none'),
+                                  ],
+                                ),
+                              );
+                            }),
                           ],
                         ),
                         const SizedBox(height: 15.0),
@@ -239,7 +350,7 @@ void showDataModal(
                         SelectableText('Hostname: ${value.hostname}'),
                         SelectableText('UUID: ${value.uuid}'),
                         SelectableText('Network: ${value.network}'),
-                        SelectableText('MAC Address: ${value.mac}'),
+                        SelectableText(value.mac),
                         Text(
                             'Last Update: ${dateFormat.format(value.timeStamp)}'),
                         Text('Update ID: ${value.updateId}'),

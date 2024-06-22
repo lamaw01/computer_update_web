@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../model/computer_detail_model.dart';
+import '../model/department_model.dart';
 import '../model/note_model.dart';
 import '../model/update_model.dart';
 
@@ -130,5 +131,44 @@ class DioService {
     );
     // debugPrint(response.data.toString());
     return computerDetailModelFromJson(json.encode(response.data));
+  }
+
+  Future<void> addDepartment({
+    required String department,
+  }) async {
+    final response = await _dio.post(
+      '/add_department.php',
+      data: {"department": department},
+    );
+    debugPrint(response.data.toString());
+  }
+
+  Future<List<DepartmentModel>> getDepartment() async {
+    final response = await _dio.get('/get_department.php');
+    debugPrint(response.data.toString());
+    return departmentModelFromJson(json.encode(response.data));
+  }
+
+  Future<DepartmentModel> getComputerDepartment(String uuid) async {
+    final response =
+        await _dio.post('/get_computer_department.php', data: {"uuid": uuid});
+    debugPrint(response.data.toString());
+    return soloDepartmentModelFromJson(json.encode(response.data));
+  }
+
+  Future<void> updateComputerDepartment(String uuid, int departmentID) async {
+    final response = await _dio.post(
+      '/update_computer_department.php',
+      data: {"uuid": uuid, "department_id": departmentID},
+    );
+    debugPrint(response.data.toString());
+  }
+
+  Future<void> addComputerDepartment(String uuid, int departmentID) async {
+    final response = await _dio.post(
+      '/add_computer_department.php',
+      data: {"uuid": uuid, "department_id": departmentID},
+    );
+    debugPrint(response.data.toString());
   }
 }

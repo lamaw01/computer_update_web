@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/computer_detail_riverpod.dart';
+import '../data/get_department.dart';
 import '../widget/data_modal.dart';
 
 class AllComputerView extends ConsumerStatefulWidget {
@@ -23,6 +24,8 @@ class _AllComputerViewState extends ConsumerState<AllComputerView> {
         await ref.read(allComputerProvider.notifier).getAllComputerDetail();
         log(ref.read(allComputerProvider).length.toString());
       }
+      await ref.read(departmentProvider.notifier).getDepartment();
+      //
     });
   }
 
