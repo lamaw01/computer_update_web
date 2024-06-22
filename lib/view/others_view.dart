@@ -21,6 +21,9 @@ class _OthersViewState extends ConsumerState<OthersView> {
     ref.read(othersProvider.notifier).sortOthersComputerDetail();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final departmentList = ref.watch(departmentProvider);
+      for (int j = 0; j < departmentList.length; j++) {
+        departmentList[j].selected = false;
+      }
       setState(() {
         departmentList.first.selected = true;
       });
