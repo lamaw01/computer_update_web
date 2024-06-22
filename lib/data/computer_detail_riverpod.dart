@@ -11,6 +11,7 @@ import '../model/os_model.dart';
 import '../services/dio_service.dart';
 import 'firstfloor_riverpod.dart';
 import 'second_floor_riverpod.dart';
+// await ref.read(allComputerProvider.notifier).getAllComputerDetail();
 
 final allComputerProvider =
     NotifierProvider<AllComputerDetail, List<ComputerDetailModel>>(

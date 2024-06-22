@@ -24,8 +24,9 @@ class _AllComputerViewState extends ConsumerState<AllComputerView> {
         await ref.read(allComputerProvider.notifier).getAllComputerDetail();
         log(ref.read(allComputerProvider).length.toString());
       }
-      await ref.read(departmentProvider.notifier).getDepartment();
-      //
+      if (ref.read(departmentProvider).length == 1) {
+        await ref.read(departmentProvider.notifier).getDepartment();
+      }
     });
   }
 

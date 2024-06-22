@@ -171,4 +171,14 @@ class DioService {
     );
     debugPrint(response.data.toString());
   }
+
+  Future<List<ComputerDetailModel>> getDepartmentComputerDetail(
+      int departmentID) async {
+    final response = await _dio.post(
+      '/get_department_computer_detail.php',
+      data: {"department_id": departmentID},
+    );
+    // debugPrint(response.data.toString());
+    return computerDetailModelFromJson(json.encode(response.data));
+  }
 }
