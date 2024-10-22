@@ -11,7 +11,7 @@ import '../model/note_model.dart';
 import '../model/update_model.dart';
 
 class DioService {
-  static const String _serverUrl = 'http://192.168.221.21/computer_details/';
+  static const String _serverUrl = 'https://192.168.221.21/computer_details/';
 
   final _dio = Dio(
     BaseOptions(
@@ -21,13 +21,16 @@ class DioService {
       headers: <String, String>{
         'Accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
       },
     ),
   );
 
   Future<List<ComputerDetailModel>> getAllComputerDetail() async {
     final response = await _dio.get('/get_computer_detail.php');
-    // debugPrint(response.data.toString());
+    // final Response<dynamic> response =
+    //     await _dio.get('/get_computer_detail.php');
+    // debugPrint('response.data.toString()');
     return computerDetailModelFromJson(json.encode(response.data));
   }
 
@@ -145,7 +148,7 @@ class DioService {
 
   Future<List<DepartmentModel>> getDepartment() async {
     final response = await _dio.get('/get_department.php');
-    debugPrint(response.data.toString());
+    // debugPrint(response.data.toString());
     return departmentModelFromJson(json.encode(response.data));
   }
 
